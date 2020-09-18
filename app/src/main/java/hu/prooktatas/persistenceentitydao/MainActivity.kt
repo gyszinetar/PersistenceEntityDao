@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity(), fa {
             val a= Author()
             a.name=textView.editableText.toString()
             Log.d("dui","dui1")
+            AsyncInsertAuthor(a,this,this).execute()
             Log.d("dui","dui2")
         }
     }
