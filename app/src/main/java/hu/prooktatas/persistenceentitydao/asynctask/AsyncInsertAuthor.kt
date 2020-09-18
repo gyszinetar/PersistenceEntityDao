@@ -9,11 +9,10 @@ import hu.prooktatas.persistenceentitydao.persistence.entity.Author
 interface  fa{
     fun faAuthor(faA:List<Author>)
 }
-class  AsyncInsertAuthor(val author: Author,val context: Context,val fa:fa):AsyncTask<Author,Unit,List<Author>>(){
+class  AsyncInsertAuthor(val author: Author,val context: Context,val fa:fa):AsyncTask<Unit,Unit,List<Author>>(){
 
-    override fun doInBackground(vararg p0: Author) :List<Author> {
+    override fun doInBackground(vararg p0: Unit) :List<Author> {
         val dao = MusicDatabase.getDatabase(context)?.authorDao()
-        val author = p0.first()
         dao!!.insertAuthor(author)
         return dao!!.fetchAll()
 
@@ -21,6 +20,7 @@ class  AsyncInsertAuthor(val author: Author,val context: Context,val fa:fa):Asyn
 
     override fun onPostExecute(result: List<Author>) {
         super.onPostExecute(result)
+        val dao = MusicDatabase.getDatabase(context)?.authorDao()
         fa.faAuthor(result)
         Log.d("dui", "onPostExecute")
         return
